@@ -65,16 +65,16 @@ function App() {
         (<Fragment>
           <div className="card-container">
             {characterResults.map(item => {
-              return (<div key={item.id} className="card">
-                      <img className="character-image" src={item.image} alt="Characters"/>
+              return (<div key={item?.id} className="card">
+                      <img className="character-image" src={item?.image} alt="Characters"/>
                       <div className="character-info">
-                        <div className="character-name">{item.name}</div>
-                        <div>{item.status} - {item.species}</div>
+                        <div className="character-name">{item?.name}</div>
+                        <div>{item.status} - {item?.species}</div>
                         <div className="location-info">
-                          <div>Origin: {item.origin.name}</div>
-                          <div>Location: {item.location.name}</div>
-                          <div>Dimension: {item.location.dimension}</div>
-                          <div>Amount of residents: {item.location.noOfResidents}</div>
+                          <div>Origin: {item?.origin?.name}</div>
+                          <div>Location: {item?.location?.name}</div>
+                          <div>Dimension: {item?.location?.dimension}</div>
+                          <div>Amount of residents: {item?.location?.noOfResidents}</div>
                           <div>Chapter Names: {item?.chapterNames?.slice(0, 5).join(', ')}</div>
                         </div>
                       </div>
