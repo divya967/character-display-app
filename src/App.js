@@ -6,6 +6,7 @@ function App() {
   const [currentPage, setCurrentPage] = useState(1);
   const [paginationInfo, setPaginationInfo] = useState({});
   const [isLoading, setIsLoading] = useState(false);
+  const [hasError, setHasError] = useState(false);
 
   const goToNextPage = () => {
     setCurrentPage((page) => page + 1);
@@ -48,19 +49,24 @@ function App() {
   useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);
-      const res = await fetch(`https://rickandmortyapi.com/api/character?page=${currentPage}`)
-      const data = await res.json();
-      if(data.info) {
-        setPaginationInfo(data.info);
+      try {
+        const res = await fetch(`https://rickandmortyapi.com/api/character?page=${currentPage}`)
+        const data = await res.json();
+        if(data.info) {
+          setPaginationInfo(data.info);
+        }
+        if(data.results.length) {
+          getLocationAndOriginDetails(data.results);
+        }
+      } catch (error) {
+        setHasError(true);
       }
-      if(data.results.length) {
-        getLocationAndOriginDetails(data.results);
-      }
-    };
+    }
     fetchData();
   }, [currentPage])
   return (
     <Fragment>
+      { hasError && <p>Something went wrong.</p> }
       { isLoading ? (<div className='centered'><h1>Loading ...</h1></div>):
         (<Fragment>
           <div className="card-container">
